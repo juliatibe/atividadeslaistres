@@ -1,0 +1,279 @@
+CREATE TABLE TUTOR(
+	id_tutor INTEGER PRIMARY KEY,
+	nome varchar(100) NOT NULL,
+	endereco varchar(150),
+	telefone varchar(15),
+	email varchar(100)
+)
+
+CREATE TABLE PACIENTE(
+	id_paciente INTEGER PRIMARY KEY,
+	nome varchar(100) NOT NULL,
+	epecie varchar(50) NOT NULL,
+	raca varchar(50),
+	idade INTEGER,
+	peso NUMERIC(15,2),
+	id_tutor INTEGER, 
+	CONSTRAINT FK_Paciente_Tutor FOREIGN KEY (ID_Tutor) REFERENCES Tutor (ID_Tutor)
+)
+
+CREATE TABLE VETERINARIO(
+	id_veterinario INTEGER PRIMARY KEY,
+	nome varchar(100) NOT NULL, 
+	especialidade varchar(100),
+	telefone varchar(15),
+	email varchar(100)
+
+)
+
+
+DELETE FROM AGENDAMENTO 
+DROP TABLE AGENDAMENTO 
+
+CREATE TABLE AGENDAMENTO(
+	id_agendamento INTEGER PRIMARY KEY,
+	data_hora TIMESTAMP,
+	motivo VARCHAR(100), 
+	id_paciente INTEGER NOT NULL,
+	id_veterinario INTEGER NOT NULL,
+	foreign KEY(id_paciente) REFERENCES paciente(id_paciente),
+	foreign KEY(id_veterinario) REFERENCES veterinario (id_veterinario)
+)
+
+
+CREATE TABLE MEDICAMENTOS(
+	id_medicamentos INTEGER PRIMARY KEY,
+	nome varchar(100),
+	descricao varchar(100),
+	preco NUMERIC(10,2)
+)
+
+
+DROP TABLE RECEITA
+
+CREATE TABLE RECEITA(
+	id_receita INTEGER PRIMARY KEY,
+	data_emissao DATE NOT NULL,
+	id_agendamento INTEGER NOT NULL,
+	CONSTRAINT FK_Receita_Agendamento FOREIGN KEY (ID_Agendamento) REFERENCES Agendamento (ID_Agendamento)
+)
+
+CREATE TABLE ITENS_DE_RECEITA(
+	id_item_receita INTEGER PRIMARY KEY,
+	id_receita INTEGER NOT NULL, 
+	id_medicamentos INTEGER NOT NULL,
+	quantidade INTEGER NOT NULL,
+	dosagem varchar(50),
+	 FOREIGN KEY (ID_Receita) REFERENCES Receita (ID_Receita),
+  FOREIGN KEY (ID_Medicamentos) REFERENCES Medicamentos (ID_Medicamentos)
+)
+
+/*INSERT TUTOR*/
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (1, 'Alex','Rua das flores', '18 99773456', 'alexsales@gmail.com' )
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (2, 'Carlos Pereira', 'Avenida Central, 45', '987654321', 'carlos@yahoo.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email) 
+VALUES (3, 'Mariana Souza', 'Rua dos Cedros, 32', '123123123', 'mariana@hotmail.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (4, 'Paulo Oliveira', 'Praça das Rosas, 456', '321321321', 'paulo@uol.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (5, 'Joana Costa', 'Rua das Palmeiras, 98', '456456456', 'joana@gmail.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (6, 'Roberto Dias', 'Rua dos Pinheiros, 65', '789789789', 'roberto@outlook.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (7, 'Fernanda Lima', 'Avenida das Águias, 88', '987987987', 'fernanda@gmail.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (8, 'Lucas Gomes', 'Rua do Sol, 21', '654654654', 'lucas@yahoo.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email) 
+VALUES (9, 'Claudia Braga', 'Avenida dos Sonhos, 112', '321654987', 'claudia@hotmail.com')
+
+INSERT INTO TUTOR (id_tutor, nome, endereco, telefone, email)
+VALUES (10, 'Pedro Alves', 'Rua das Amoras, 75', '111222333', 'pedro@gmail.com')
+
+/*INSERT PACIENTE*/
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor) 
+VALUES (1, 'Rex', 'Cão', 'Labrador', 3, 30.5, 1);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (2, 'Mia', 'Gato', 'Siamês', 2, 4.3, 2);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (3, 'Bolinha', 'Cão', 'Poodle', 5, 8.2, 3);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor) 
+VALUES (4, 'Luna', 'Gato', 'Persa', 4, 4.5, 4);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (5, 'Thor', 'Cão', 'Pitbull', 6, 35.0, 5);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (6, 'Nina', 'Gato', 'Vira-lata', 3, 3.8, 6);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor) 
+VALUES (7, 'Zeus', 'Cão', 'Doberman', 7, 40.2, 7);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor) 
+VALUES (8, 'Bela', 'Cão', 'Beagle', 2, 12.5, 8);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (9, 'Tom', 'Gato', 'Angorá', 3, 4.1, 9);
+
+INSERT INTO PACIENTE (id_paciente, nome, epecie, raca, idade, peso, id_tutor)
+VALUES (10, 'Spike', 'Cão', 'Bulldog', 4, 20.0, 10);
+
+/*INSERT VETERINARIO*/
+
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (1, 'Dr. João Martins', 'Cirurgia', '555123456', 'joao@vet.com');
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (2, 'Dra. Maria Souza', 'Dermatologia', '555987654', 'maria@vet.com');
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (3, 'Dr. Pedro Ramos', 'Ortopedia', '555111222', 'pedro@vet.com');
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (4, 'Dra. Carla Mendes', 'Oftalmologia', '555333444', 'carla@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (5, 'Dr. Paulo Lima', 'Neurologia', '555555666', 'paulo@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (6, 'Dra. Fernanda Rocha', 'Cardiologia', '555777888', 'fernanda@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (7, 'Dr. Rafael Silva', 'Oncologia', '555999000', 'rafael@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (8, 'Dra. Juliana Farias', 'Odontologia', '555222111', 'juliana@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (9, 'Dr. Marcos Costa', 'Endocrinologia', '555444333', 'marcos@vet.com')
+
+INSERT INTO VETERINARIO (id_veterinario, nome, especialidade, telefone, email)
+VALUES (10, 'Dra. Sofia Nunes', 'Geriatria', '555666555', 'sofia@vet.com')
+
+/*AGENDAMENTO*/
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario) 
+VALUES (1, '2024-09-25 10:00:00', 'Consulta de rotina', 1, 1);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario) 
+VALUES (2, '2024-09-25 11:00:00', 'Vacinação', 2, 2);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (3, '2024-09-26 09:30:00', 'Cirurgia', 3, 3);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (4, '2024-09-26 11:30:00', 'Exame oftalmológico', 4, 4);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (5, '2024-09-27 08:00:00', 'Consulta de rotina', 5, 5);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (6, '2024-09-27 10:00:00', 'Exame cardíaco', 6, 6);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (7, '2024-09-28 09:00:00', 'Consulta de oncologia', 7, 7);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (8, '2024-09-28 13:00:00', 'Limpeza dentária', 8, 8);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (9, '2024-09-29 10:30:00', 'Consulta endocrinológica', 9, 9);
+
+INSERT INTO AGENDAMENTO (id_agendamento, data_hora, motivo, id_paciente, id_veterinario)
+VALUES (10, '2024-09-29 12:00:00', 'Consulta geriátrica', 10, 10);
+
+
+/* INSERT MEDICAMENTOS*/
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (1, 'Dipirona', 'Analgésico e antitérmico', 5.99)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (2, 'Amoxicilina', 'Antibiótico', 15.75)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (3, 'Ranitidina', 'Antiácido', 8.50)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco) 
+VALUES (4, 'Metoclopramida', 'Antiemético', 12.30)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (5, 'Cefalexina', 'Antibiótico de amplo espectro', 22.00)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (6, 'Enrofloxacina', 'Antibiótico veterinário', 30.99)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (7, 'Meloxicam', 'Anti-inflamatório', 18.75)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco) 
+VALUES (8, 'Carprofeno', 'Analgésico e anti-inflamatório', 25.90)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco)
+VALUES (9, 'Prednisona', 'Corticosteroide', 10.50)
+
+INSERT INTO MEDICAMENTOS (id_medicamentos, nome, descricao, preco) 
+VALUES (10, 'Cetoconazol', 'Antifúngico', 16.99)
+
+
+
+/*INSERT RECEITA*/
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (1, '2024-09-25', 1);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (2, '2024-09-25', 2);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (3, '2024-09-26', 3);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (4, '2024-09-26', 4);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (5, '2024-09-27', 5);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (6, '2024-09-27', 6);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento) 
+VALUES (7, '2024-09-28', 7);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (8, '2024-09-28', 8);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (9, '2024-09-29', 9);
+
+INSERT INTO RECEITA (id_receita, data_emissao, id_agendamento)
+VALUES (10, '2024-09-29', 10);
+
+
+/*ITENS RECEITA*/
+
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, 'id_medicamento, quantidade, dosagem) VALUES (1, 1, 1, 2, '500mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (2, 2, 2, 1, '250mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (3, 3, 3, 1, '150mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (4, 4, 4, 1, '100mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (5, 5, 5, 1, '200mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (6, 6, 6, 2, '400mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (7, 7, 7, 1, '150mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (8, 8, 8, 1, '50mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (9, 9, 9, 1, '100mg');
+INSERT INTO ITENS_DE_RECEITA (id_item_receita, id_receita, id_medicamento, quantidade, dosagem) VALUES (10, 10, 10, 1, '200mg');
+
